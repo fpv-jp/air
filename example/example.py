@@ -53,7 +53,7 @@ ARM_length = PROP_INCH / 2 * adjustment  # モータとボディのピッチ/ア
 ARM_width = 12.0  # アームの幅
 
 ARM_THICKNESS = 6.0  # アームの太さ
-PLATE_THICKNESS = 3.0  # 天板/底板の厚み
+PLATE_THICKNESS = 2.0  # 天板/底板の厚み
 
 MOTOR_PITCH = 19.0 / 2  # モータの取り付け穴ピッチ
 FC_PITCH = 30.5 / 2  # FC/ESCの取り付けピンのピッチ
@@ -182,8 +182,9 @@ def create_plate():
 
     # 基板プレート
     body = base.create_cylinder(
-        radius=24.5,
+        radius=36.0,
         depth=PLATE_THICKNESS,
+        vertices=64,
     )
 
     # 中央穴(φ5)
@@ -198,6 +199,12 @@ def create_plate():
 
     # FCのピッチに合わせて合計8つ開ける
     for i, (x, y) in enumerate(FC_HOLES):
+#        base.cut_cylinder(
+#            target=body,
+#            radius=M3 / 2,
+#            depth=PLATE_THICKNESS,
+#            location=(x, y, 0.0),
+#        )
         base.add_ring(
             target=body,
             outer_radius=M3 * 2,
@@ -205,9 +212,16 @@ def create_plate():
             depth=PLATE_THICKNESS,
             location=(x, y, 0.0),
         )
-
+        
     body.rotation_euler[2] = math.pi / 4
+    body.location[0] = 3.8
     for i, (x, y) in enumerate(FC_HOLES):
+#        base.cut_cylinder(
+#            target=body,
+#            radius=M3 / 2,
+#            depth=PLATE_THICKNESS,
+#            location=(x, y, 0.0),
+#        )
         base.add_ring(
             target=body,
             outer_radius=M3 * 1.25,
@@ -215,51 +229,59 @@ def create_plate():
             depth=PLATE_THICKNESS,
             location=(x, y, 0.0),
         )
+    body.location[0] = 0.0
     return body
-
 
 # ------------------------------------------------------------------------------------
 # 組み立て
 # ------------------------------------------------------------------------------------
 
-arm_motor = create_arm_motor()
+#arm_motor = create_arm_motor()
 
-# アームの出力用
+## アームの出力用
+##arm_motor.rotation_euler[2] = 0
+##arm_motor.location = (0.0, ARM_length / 2, 0.0)
+##base.set_origin(arm_motor, (0.0, 0.0, 0.0))
+
+## 他の アーム を複製 ----------------------------
+#for i, (x) in enumerate([math.pi / 2, math.pi, -math.pi / 2]):
+#    base.copy(arm_motor, rotation=(0, 0, x))
 #arm_motor.rotation_euler[2] = 0
-#arm_motor.location = (0.0, ARM_length / 2, 0.0)
-#base.set_origin(arm_motor, (0.0, 0.0, 0.0))
-
-# 他の アーム を複製 ----------------------------
-for i, (x) in enumerate([math.pi / 2, math.pi, -math.pi / 2]):
-    base.copy(arm_motor, rotation=(0, 0, x))
-arm_motor.rotation_euler[2] = 0
 
 # 天板 ----------------------------
 top = create_plate()
-top.location = (0.0, 0.0, 3.0 + 1.5)
+#top.location = (0.0, 0.0, 3.0 + 1.5)
 
-# 底板を複製 ----------------------------
-bottom = base.copy(top, location=(0.0, 0.0, -3.0 - 1.5))
+## 底板を複製 ----------------------------
+#bottom = base.copy(top, location=(0.0, 0.0, -3.0 - 1.5))
 
-# ------------------------------------------------------------------------------------
-# 参考(バッテリーx2、FC, ESC)
-# ------------------------------------------------------------------------------------
-if EXAMPLE:
-    battery1 = base.create_cube(scale=(37, 37, 70))
-    battery2 = base.copy(battery1)
+## ------------------------------------------------------------------------------------
+## 参考(バッテリーx2、FC, ESC)
+## ------------------------------------------------------------------------------------
+#if EXAMPLE:
+#    battery1 = base.create_cube(scale=(37, 37, 70))
+#    battery2 = base.copy(battery1)
 
-    fc = base.create_cube(scale=(40, 40, 10), rotation=(0, 0, math.pi / 4))
-    # esc = base.create_cube(scale=(56, 59, 10))
-    esc = base.create_cube(scale=(40, 40, 10))
+#    fc = base.create_cube(scale=(40, 40, 10), rotation=(0, 0, math.pi / 4))
+#    # esc = base.create_cube(scale=(56, 59, 10))
+#    esc = base.create_cube(scale=(40, 40, 10))
 
-    battery1.location = (0.0, 0.0, 128.0)
-    battery2.location = (0.0, 0.0, 54.0)
+#    battery1.location = (0.0, 0.0, 128.0)
+#    battery2.location = (0.0, 0.0, 54.0)
 
-    fc.location = (0.0, 0.0, 12.0)
-    esc.location = (0.0, 0.0, -12.0)
+#    fc.location = (0.0, 0.0, 12.0)
+#    esc.location = (0.0, 0.0, -12.0)
 
-    bpy.ops.object.select_all(action="SELECT")
-    bpy.context.view_layer.objects.active = next(iter(bpy.context.scene.objects))
-    bpy.ops.object.join()
-    bpy.context.active_object.rotation_euler[2] = math.pi / 4
-    bpy.context.active_object.location.z -= 76
+#    bpy.ops.object.select_all(action="SELECT")
+#    bpy.context.view_layer.objects.active = next(iter(bpy.context.scene.objects))
+#    bpy.ops.object.join()
+#    bpy.context.active_object.rotation_euler[2] = math.pi / 4
+#    bpy.context.active_object.location.z -= 76
+
+#motor = base.create_cube(
+#    scale=(
+#        56.0,
+#        60.7,
+#        7.5,
+#    )
+#)
