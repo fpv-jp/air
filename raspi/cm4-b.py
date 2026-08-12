@@ -163,30 +163,30 @@ for i, (y) in enumerate([8.0, -8.0]):
         location=(-MAIN_WIDTH/2, y, MAIN_THICKNESS*2),
     )
 
-# beam
-X = 4.0
-Y = 8.0
-Z = 45.0
-XP = MAIN_WIDTH/2+2.0
-for i, (xp) in enumerate([XP, -XP]):
-    base.add_cube(
-        target=ubec,
-        scale=(X, Y, Z),
-        location=(xp, 0.0, (Z-MAIN_DEPTH)/2),
-    )
-    base.add_cube(
-        target=ubec,
-        scale=(X, MAIN_HEIGHT-MAIN_THICKNESS*2, MAIN_THICKNESS*2),
-        location=(xp, 0.0, (MAIN_THICKNESS*2-MAIN_DEPTH)/2),
-    )
-    base.add_ring(
-        target=ubec,
-        outer_radius=Y/2,
-        inner_radius=1.75,
-        depth=X,
-        location=(xp, 0.0, Z-Y/2),
-        rotation=(0, math.pi / 2, 0),
-    )
+## beam
+#X = 4.0
+#Y = 8.0
+#Z = 45.0
+#XP = MAIN_WIDTH/2+2.0
+#for i, (xp) in enumerate([XP, -XP]):
+#    base.add_cube(
+#        target=ubec,
+#        scale=(X, Y, Z),
+#        location=(xp, 0.0, (Z-MAIN_DEPTH)/2),
+#    )
+#    base.add_cube(
+#        target=ubec,
+#        scale=(X, MAIN_HEIGHT-MAIN_THICKNESS*2, MAIN_THICKNESS*2),
+#        location=(xp, 0.0, (MAIN_THICKNESS*2-MAIN_DEPTH)/2),
+#    )
+#    base.add_ring(
+#        target=ubec,
+#        outer_radius=Y/2,
+#        inner_radius=1.75,
+#        depth=X,
+#        location=(xp, 0.0, Z-Y/2),
+#        rotation=(0, math.pi / 2, 0),
+#    )
 
 # filling
 XP = (MAIN_WIDTH+MAIN_THICKNESS)/2
