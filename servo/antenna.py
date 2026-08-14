@@ -45,6 +45,56 @@ base.cut_inner_corners(
     thickness=MAIN_THICKNESS,
 )
 
+base.cut_cylinder(
+    target=main,
+    radius=1.75,
+    depth=45,
+    rotation=(0, math.pi / 2, 0),
+)
+
+base.cut_cylinder(
+    target=main,
+    radius=1.75,
+    depth=45,
+    rotation=(math.pi / 2, 0, 0),
+)
+
+base.cut_cylinder(
+    target=main,
+    radius=1.75,
+    depth=45,
+)
+
+X = MAIN_WIDTH/2.3
+Y = MAIN_HEIGHT/2.7
+
+base.cut_cylinder(
+    target=main,
+    radius=1.75,
+    depth=45,
+    location=(X, Y, 0),
+)
+base.cut_cylinder(
+    target=main,
+    radius=1.75,
+    depth=45,
+    location=(-X, Y, 0),
+)
+base.cut_cylinder(
+    target=main,
+    radius=1.75,
+    depth=45,
+    location=(X, -Y, 0),
+)
+base.cut_cylinder(
+    target=main,
+    radius=1.75,
+    depth=45,
+    location=(-X, -Y, 0),
+)
+
+
+
 #############################################################################
 
 MAIN_WIDTH2 = 21.3
@@ -61,36 +111,39 @@ base.cut_cylinder(
     radius=1.75,
     depth=35,
     rotation=(0, math.pi / 2, 0),
-#    location=(0, 0.1, 0),
+
 )
 
 main2.location=(0, (MAIN_HEIGHT+MAIN_HEIGHT2)/2+MAIN_THICKNESS, 0)
 
 base.modifier_apply(obj=main2, target=main, operation="UNION")
 
-#############################################################################
+##############################################################################
 
-main.location=(0, 0, MAIN_DEPTH/2 - MAIN_THICKNESS/2)
 
-MAIN_WIDTH = 44
+##############################################################################
 
-M = 3.25
+#main.location=(0, 0, MAIN_DEPTH/2 - MAIN_THICKNESS/2)
 
-X = MAIN_WIDTH/2+M
+#MAIN_WIDTH = 44
 
-base.add_cube(
-    target=main,
-    scale=(
-        MAIN_WIDTH + M * 2,
-        M * 4,
-        MAIN_THICKNESS,
-    ),
-)
-for i, (x) in enumerate([X, -X]):
-    base.add_ring(
-        target=main,
-        outer_radius=M * 2,
-        inner_radius=M,
-        depth=MAIN_THICKNESS,
-        location=(x, 0, 0),
-    )
+#M = 3.25
+
+#X = MAIN_WIDTH/2+M
+
+#base.add_cube(
+#    target=main,
+#    scale=(
+#        MAIN_WIDTH + M * 2,
+#        M * 4,
+#        MAIN_THICKNESS,
+#    ),
+#)
+#for i, (x) in enumerate([X, -X]):
+#    base.add_ring(
+#        target=main,
+#        outer_radius=M * 2,
+#        inner_radius=M,
+#        depth=MAIN_THICKNESS,
+#        location=(x, 0, 0),
+#    )

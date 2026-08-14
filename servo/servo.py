@@ -88,7 +88,7 @@ def Build_FS0403():
     FS0403.rotation_euler[2] = math.pi / 2
 
     MAIN_WIDTH = 34.8
-    MAIN_HEIGHT = 17.4
+    MAIN_HEIGHT = 14.6
     MAIN_DEPTH = 8.0
 
     MAIN_THICKNESS = 3.2
@@ -98,16 +98,7 @@ def Build_FS0403():
     main = base.create_cube(
         scale=(MAIN_WIDTH + MAIN_THICKNESS*2, MAIN_HEIGHT + MAIN_THICKNESS*2, MAIN_DEPTH),
     )
-    base.cut_cube(target=main,
-        scale=(MAIN_WIDTH+MAIN_THICKNESS, MAIN_HEIGHT+MAIN_THICKNESS, MAIN_DEPTH),
-        location=(MAIN_THICKNESS/2, MAIN_THICKNESS, 0.0),
-    )
 
-    base.add_cube(
-        target=main,
-        scale=(20.0, 1.2, MAIN_DEPTH),
-        location=(MAIN_WIDTH/2+MAIN_THICKNESS-10.0, -MAIN_HEIGHT/2 - MAIN_THICKNESS -0.6, 0),
-    )
     def punch_hole(r,x):
         base.cut_cylinder(
             target=main,
@@ -124,10 +115,25 @@ def Build_FS0403():
 #            location=(x-3.3, 0, 0)
 #        )
     punch_hole(1.25, 0)
-    punch_hole(0.7, 6)
-    punch_hole(0.7, 15.7)
+    
+    def punch_ring(r,x):
+        base.add_ring(
+            target=main,
+            outer_radius=r+1,
+            inner_radius=r,
+            depth=5.5,
+            rotation=(math.pi / 2, 0, 0),
+            location=(x-3.3, -(MAIN_HEIGHT+MAIN_THICKNESS)/2, 0)
+        )
+    punch_ring(0.7, 6)
+    punch_ring(0.7, 15.7)
+    
+    base.cut_cube(target=main,
+        scale=(MAIN_WIDTH+MAIN_THICKNESS, MAIN_HEIGHT+MAIN_THICKNESS, MAIN_DEPTH),
+        location=(MAIN_THICKNESS/2, MAIN_THICKNESS/1.5, 0.0),
+    )
 
-    main.location[1] = -5.0-MAIN_THICKNESS/2
+    main.location[1] = -3.6-MAIN_THICKNESS/2
 
 #    base.add_cylinder(
 #        target=main,
