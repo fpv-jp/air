@@ -90,8 +90,8 @@ for i, (x, y) in enumerate(triangles):
 ### ubec ----------------------------------------------------------------------------------------------------------------
 ### ubec ----------------------------------------------------------------------------------------------------------------
 
-MAIN_WIDTH = 21.8
-MAIN_HEIGHT = 43.0
+MAIN_WIDTH = 21.6
+MAIN_HEIGHT = 42.8
 
 ubec = base.create_cube(
     scale=(
@@ -160,7 +160,7 @@ for i, (x) in enumerate([8.0, -8.0]):
 #    )
 
 ### ----------------------------------------------------------------------------------------------------------------
-ubec.location[0] = -56.2/2-MAIN_WIDTH/2-MAIN_THICKNESS
+ubec.location[0] = -55.6/2-MAIN_WIDTH/2-MAIN_THICKNESS
 ubec.location[2] = MAIN_DEPTH/2
 
 main.location[0] = 0
@@ -220,9 +220,67 @@ base.cut_cube(
 
 #### ----------------------------------------------------------------------------------------------------------------
 
-wifi.location[0] = -(56.2+MAIN_WIDTH)/2 - MAIN_THICKNESS * 2
+wifi.location[0] = -55.6/2-MAIN_WIDTH/2 - MAIN_THICKNESS * 2
 wifi.location[2] = MAIN_DEPTH/2
 
-main.location[0] += 21.8
+main.location[0] += 21.6
 
 base.modifier_apply(obj=wifi, target=main, operation="UNION")
+
+### raspi ----------------------------------------------------------------------------------------------------------------
+### raspi ----------------------------------------------------------------------------------------------------------------
+### raspi ----------------------------------------------------------------------------------------------------------------
+
+main.location[0] += (32.15/2)
+
+X = 58.0 / 2
+Y = 49.0 / 2
+M = 3.7
+
+c = [
+    (X, Y),
+    (-X, Y),
+]
+
+for i, (x, y) in enumerate(c):
+    base.add_cube(
+        target=main,
+        scale=(
+            M * 2,
+            M * 2,
+            MAIN_THICKNESS,
+        ),
+        location=(x, y - M, MAIN_THICKNESS/2),
+    )
+    base.add_ring(
+        target=main,
+        outer_radius=M,
+        inner_radius=M/2,
+        depth=MAIN_THICKNESS,
+        location=(x, y, MAIN_THICKNESS/2),
+
+    )
+c = [
+    (X, -Y),
+    (-X, -Y),
+]
+
+for i, (x, y) in enumerate(c):
+    base.add_cube(
+        target=main,
+        scale=(
+            M * 2,
+            M * 2,
+            MAIN_THICKNESS,
+        ),
+        location=(x, y + M, MAIN_THICKNESS/2),
+    )
+    base.add_ring(
+        target=main,
+        outer_radius=M,
+        inner_radius=M/2,
+        depth=MAIN_THICKNESS,
+        location=(x, y, MAIN_THICKNESS/2),
+
+    )
+
