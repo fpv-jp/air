@@ -88,7 +88,7 @@ def Build_FS0403():
     FS0403.rotation_euler[2] = math.pi / 2
 
     MAIN_WIDTH = 34.8
-    MAIN_HEIGHT = 14.6
+    MAIN_HEIGHT = 13.6
     MAIN_DEPTH = 8.0
 
     MAIN_THICKNESS = 3.2
@@ -133,7 +133,7 @@ def Build_FS0403():
         location=(MAIN_THICKNESS/2, MAIN_THICKNESS/1.5, 0.0),
     )
 
-    main.location[1] = -3.6-MAIN_THICKNESS/2
+    main.location[1] = -3.1-MAIN_THICKNESS/2
 
 #    base.add_cylinder(
 #        target=main,
