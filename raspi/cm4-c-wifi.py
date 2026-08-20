@@ -48,8 +48,8 @@ for i, (x, y) in enumerate([(X, Y), (X, -Y)]):
         target=main,
         outer_radius=M * 2.5,
         inner_radius=M,
-        depth=CM4_DEPTH+2.0,
-        location=(x, y, 1.0),
+        depth=CM4_DEPTH+3.5,
+        location=(x, y, 3.5/2),
     )
 
 #### wifi ----------------------------------------------------------------------------------------------------------------
