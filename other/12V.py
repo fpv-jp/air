@@ -16,8 +16,8 @@ base.init()
 
 
 MAIN_WIDTH = 68.2
-MAIN_HEIGHT = 17.3
-MAIN_DEPTH = 12.5
+MAIN_HEIGHT = 18.3
+MAIN_DEPTH = 16.5
 
 MAIN_THICKNESS = 3.0
 
@@ -39,32 +39,32 @@ base.cut_cube(
     location=(0.0, 0.0, MAIN_THICKNESS/2),
 )
 
-W1 = 12.5
-base.cut_cube(
-    target=main,
-    scale=(
-        W1,
-        MAIN_HEIGHT+MAIN_THICKNESS*3,
-        MAIN_DEPTH,
-    ),
-    location=(
-        -MAIN_WIDTH/2+W1/2+2.8, 
-        0.0, 
-        MAIN_THICKNESS/2
-    ),
-)
+#W1 = 12.5
+#base.cut_cube(
+#    target=main,
+#    scale=(
+#        W1,
+#        MAIN_HEIGHT+MAIN_THICKNESS*3,
+#        MAIN_DEPTH,
+#    ),
+#    location=(
+#        -MAIN_WIDTH/2+W1/2+2.8, 
+#        0.0, 
+#        MAIN_THICKNESS/2
+#    ),
+#)
 
 W2 = 2.5
 base.cut_cube(
     target=main,
     scale=(
         W2,
-        MAIN_HEIGHT+MAIN_THICKNESS*3,
+        MAIN_HEIGHT,
         MAIN_DEPTH,
     ),
     location=(
-        -MAIN_WIDTH/2+W2/2+20.8, 
-        0.0, 
+        -MAIN_WIDTH/2+W2/2+27.4, 
+        MAIN_HEIGHT/2, 
         MAIN_THICKNESS/2
     ),
 )
@@ -81,12 +81,43 @@ base.add_cube(
     location=(MAIN_WIDTH/4, 0.0, MAIN_THICKNESS/2),
 )
 
+W3 = 10.5
 base.cut_cube(
     target=main,
     scale=(
         MAIN_WIDTH/2,
-        11.0,
+        W3,
         MAIN_DEPTH,
     ),
-    location=(MAIN_WIDTH/4, -MAIN_HEIGHT/2+11.0/2, MAIN_THICKNESS/2),
+    location=(MAIN_WIDTH/4, -MAIN_HEIGHT/2+W3/2, MAIN_THICKNESS/2),
 )
+
+# --------------------------------
+
+base.cut_cube(
+    target=main,
+    scale=(
+        MAIN_WIDTH/2,
+        MAIN_HEIGHT/2,
+        MAIN_DEPTH*2,
+    ),
+    location=(
+        MAIN_WIDTH/4+MAIN_THICKNESS, 
+        MAIN_HEIGHT/4+MAIN_THICKNESS*1.5, 
+        0
+    ),
+)
+
+# --------------------------------
+
+W4 = 5.2
+base.add_cube(
+    target=main,
+    scale=(
+        MAIN_THICKNESS,
+        W4,
+        MAIN_DEPTH,
+    ),
+    location=(MAIN_WIDTH/2-MAIN_THICKNESS/2, -MAIN_HEIGHT/2+W4/2, MAIN_THICKNESS/2),
+)
+
