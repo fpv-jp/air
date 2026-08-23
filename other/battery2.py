@@ -38,7 +38,7 @@ base.cut_cube(
         MAIN_HEIGHT*2,
         4.0,
     ),
-    location=(0.0, 0.0, MAIN_DEPTH/2),
+    location=(6.0, 0.0, MAIN_DEPTH/2),
 )
 
 # --------------------------------

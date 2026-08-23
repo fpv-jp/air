@@ -13,9 +13,9 @@ import base
 
 base.init()
 
-MAIN_WIDTH = 47.3
-MAIN_HEIGHT = 10.7
-MAIN_DEPTH = 5.0
+MAIN_WIDTH = 75.6
+MAIN_HEIGHT = 77.8
+MAIN_DEPTH = 5.8
 
 MAIN_THICKNESS = 2.0
 
@@ -28,23 +28,54 @@ main = base.create_cube(
         MAIN_DEPTH+MAIN_THICKNESS
     ),
 )
-
-# --------------------------------
-
 base.cut_cube(
     target=main,
     scale=(
-        2.3,
-        MAIN_HEIGHT*2,
-        4.0,
+        MAIN_WIDTH,
+        MAIN_HEIGHT,
+        MAIN_DEPTH,
     ),
-    location=(6.0, 0.0, MAIN_DEPTH/2),
+    location=(0.0, 0.0, MAIN_THICKNESS/2),
 )
 
 # --------------------------------
 
+P = 18.5
+for i, (p) in enumerate([(P*1.5),(P/2),(-P/2),(-P*1.5)]):
+    base.add_cube(
+        target=main,
+        scale=(
+            6.8,
+            MAIN_HEIGHT+10.4,
+            MAIN_DEPTH+MAIN_THICKNESS,
+        ),
+        location=(p, 0.0, 0.0),
+    )
+    base.cut_cube(
+        target=main,
+        scale=(
+            6.8,
+            MAIN_HEIGHT+10.4,
+            MAIN_DEPTH+MAIN_THICKNESS,
+        ),
+        location=(p, 0.0, MAIN_THICKNESS),
+    )
+    
+    base.cut_cube(
+        target=main,
+        scale=(
+            8.2,
+            66.3,
+            MAIN_DEPTH*2,
+        ),
+        location=(p, 0.0, 0.0),
+    )
+
+# --------------------------------
+
 X = (33+40)/4
-for i, (x, y) in enumerate([(X, 0), (-X, 0)]):
+Y = (51.6+58.3)/4
+for i, (x, y) in enumerate([(X, Y), (X, -Y), (-X, -Y), (-X, Y)]):
     base.cut_cylinder(
         target=main,
         radius=1.9,
