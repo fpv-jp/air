@@ -14,14 +14,6 @@ import base
 
 base.init()
 
-
-CM4_DEPTH = 2.0
-
-CM4_THICKNESS = 1.5
-
-Z = CM4_DEPTH + CM4_THICKNESS
-
-
 ### ----------------------------------------------------------------------------------------------------------------
 
 BASE_PLATE_WIDTH = 40
@@ -82,12 +74,13 @@ base.cut_holes(
 
 CM4_WIDTH = 24.0
 CM4_HEIGHT = 16.0
+CM4_DEPTH = 3.5
 
-main = base.create_cube(scale=(CM4_WIDTH, CM4_HEIGHT, Z))
+main = base.create_cube(scale=(CM4_WIDTH, CM4_HEIGHT, CM4_DEPTH))
 
 base.add_cube(
     target=main,
-    scale=(CM4_WIDTH, Z, Z),
+    scale=(CM4_WIDTH, CM4_DEPTH, CM4_DEPTH),
     location=(0, 6.7, -0.51 ),
     rotation=(math.radians(75), 0, 0),
 )
@@ -99,7 +92,7 @@ YP = 6.8
 
 base.add_cube(
     target=main,
-    scale=(X*2, R*2, Z),
+    scale=(X*2, R*2, CM4_DEPTH),
     location=(0, -YP, 0),
 )
 
@@ -108,7 +101,7 @@ for i, (x, y) in enumerate([(X, -YP), (-X, -YP)]):
         target=main,
         outer_radius=R,
         inner_radius=1.4,
-        depth=Z,
+        depth=CM4_DEPTH,
         location=(x, y, 0),
     )
 
