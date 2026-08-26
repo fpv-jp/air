@@ -56,49 +56,29 @@ bottom = create_case(MAIN_DEPTH2)
 
 
 def punch(obj):
-    
-    M3 = 1.75
-
-    P_X = -47.0
-    P_Y = 33.9
-
-    G_X = 93.15
-    G_Y = 49.0
-    G_X2 = 58.5
-
     base.cut_holes(
         target=obj,
-        radius=M3,
+        radius=1.75,
         depth=MAIN_DEPTH,
         positions=[
-            (P_X, P_Y),
-            (P_X + G_X, P_Y),
-            (P_X, P_Y - G_Y),
-            (P_X + G_X, P_Y - G_Y),
-            (P_X + G_X2, P_Y),
+            (-47.0, 33.9),
+            (46.15, 33.9),
+            (-47.0, -15.1),
+            (46.15, -15.1),
+            (11.5, 33.9),
         ],
     )
 
-    M3 = 1.6
-
-    P_X = -40.6
-    P_X2 = 13.3
-    P_X3 = 11.6
-
-    P_Y = 18.1
-    P_Y2 = -14.9
-    P_Y3 = -1.9
-
     base.cut_holes(
         target=obj,
-        radius=M3,
+        radius=1.6,
         depth=MAIN_DEPTH,
         positions=[
-            (P_X, P_Y),
-            (P_X, P_Y2),
-            (P_X2, P_Y),
-            (P_X2, P_Y2),
-            (P_X3, P_Y3),
+            (-40.6, 18.1),
+            (-40.6, -14.9),
+            (13.3, 18.1),
+            (13.3, -14.9),
+            (11.6, -1.9),
         ],
     )
 
