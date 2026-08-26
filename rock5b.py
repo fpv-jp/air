@@ -14,17 +14,16 @@ import base
 base.init()
 
 # main -----------------------------------
-MAIN_WIDTH = 100.5
-MAIN_HEIGHT = 74.6
+MAIN_WIDTH = 101.0
+MAIN_HEIGHT = 75.0
 
-MAIN_DEPTH1 = 8.0
-MAIN_DEPTH2 = 4.5
+MAIN_DEPTH1 = 9.0
+MAIN_DEPTH2 = 7.2
 MAIN_DEPTH = MAIN_DEPTH1 + MAIN_DEPTH2
 
 MAIN_THICKNESS = 1.5
 
-BASE_X = MAIN_WIDTH / 2
-BASE_Y = MAIN_HEIGHT / 2
+# X/Y coordinates use the board center as origin.
 
 def create_case(depth):
     main = base.create_cube(
@@ -53,15 +52,15 @@ def create_case(depth):
 
 top = create_case(MAIN_DEPTH1)
 
-#bottom = create_case(MAIN_DEPTH2)
+bottom = create_case(MAIN_DEPTH2)
 
 
 def punch(obj):
     
     M3 = 1.75
 
-    P_X = -BASE_X + 3.5
-    P_Y = BASE_Y - 3.6
+    P_X = -47.0
+    P_Y = 33.9
 
     G_X = 93.15
     G_Y = 49.0
@@ -82,13 +81,13 @@ def punch(obj):
 
     M3 = 1.6
 
-    P_X = -BASE_X + 8.3 + M3
-    P_X2 = -BASE_X + 62.2 + M3
-    P_X3 = BASE_X - 37.3 - M3
+    P_X = -40.6
+    P_X2 = 13.3
+    P_X3 = 11.6
 
-    P_Y = BASE_Y - 17.8 - M3
-    P_Y2 = BASE_Y - 50.8 - M3
-    P_Y3 = BASE_Y - 37.8 - M3
+    P_Y = 18.1
+    P_Y2 = -14.9
+    P_Y3 = -1.9
 
     base.cut_holes(
         target=obj,
@@ -107,14 +106,18 @@ def punch(obj):
 top.rotation_euler[0] = math.pi
 punch(top)
 
-#punch(bottom)
+punch(bottom)
 
 # --------------------------- CPU
 
 base.cut_cube(
     target=top,
-    scale=(41.0, 41.0, MAIN_DEPTH + MAIN_THICKNESS),
-    location=(-BASE_X + 27.3, -BASE_Y + 39.9, 0),
+    scale=(41.0, 41.0, 34.0),
+    location=(
+        -23.2,
+        7.8,
+        0
+    ),
 )
 
 ## --------------------------- GPIO
@@ -124,8 +127,12 @@ GIPO_Y = 5.1
 
 base.cut_cube(
     target=top,
-    scale=(GIPO_X, GIPO_Y, MAIN_DEPTH),
-    location=(-BASE_X + 32.6, BASE_Y - 3.8, 0),
+    scale=(GIPO_X, GIPO_Y, 17.01),
+    location=(
+        -17.9,
+        33.7,
+        0
+    ),
 )
 
 ## --------------------------- GPIO(4pin)
@@ -135,8 +142,12 @@ GIPO_Y = 5.1
 
 base.cut_cube(
     target=top,
-    scale=(GIPO_X, GIPO_Y, MAIN_DEPTH),
-    location=(BASE_X - 36.2 - GIPO_X / 2, BASE_Y - 8.2 - GIPO_Y / 2, 0),
+    scale=(GIPO_X, GIPO_Y, 17.01),
+    location=(
+        11.8,
+        26.75,
+        0
+    ),
 )
 
 ## --------------------------- WIFI
@@ -146,75 +157,68 @@ WIFI_Y = 21.0
 
 base.cut_cube(
     target=top,
-    scale=(WIFI_X, WIFI_Y, MAIN_DEPTH + MAIN_THICKNESS),
-    location=(BASE_X - 8.2 - WIFI_X / 2, BASE_Y - 18.1 - WIFI_Y / 2, 0),
+    scale=(WIFI_X, WIFI_Y, 17.01),
+    location=(
+        31.3,
+        8.4,
+        0
+    ),
 )
 
 ################################################
 
-top.location[2] = MAIN_DEPTH1/2
-#bottom.location[2] = -MAIN_DEPTH2/2
+top.location[2] = 4.5
+bottom.location[2] = -MAIN_DEPTH2/2
 
 ################################################
 
 
-def cube_cut(scale, pos):
-    z = (scale[2] - MAIN_DEPTH - MAIN_THICKNESS) / 2
+def cube_cut(scale, location):
     base.cut_cube(
         target=top,
         scale=scale,
-        location=(pos, -BASE_Y + scale[1] / 2 - 2, z),
+        location=location,
     )
-
-
-H = 15
-
 
 base.cut_cylinder(
     target=top,
-    radius=3.15 + 0.5 / 2,
-    depth=5,
-    location=(-BASE_X + 6.4, -BASE_Y + 5 / 2 - 2, 2),
+    radius=3.35,
+    depth=6.4,
+    location=(
+        -44.1,
+        -37.5,
+        4.2
+    ),
     rotation=(math.pi / 2, 0, 0),
 )
 
 
-cube_cut(scale=(6.3 + 0.5, H, 9.0), pos=-BASE_X + 6.4)  # DC
-cube_cut(scale=(3.4 + 0.5, 13.0, H), pos=-BASE_X + 14.8)  # USB-C
-cube_cut(scale=(5.6 + 0.5, 19.0, H), pos=-BASE_X + 24.6)  # HDMI1
-cube_cut(scale=(5.6 + 0.5, 19.0, H), pos=-BASE_X + 37.3)  # HDMI2
-cube_cut(scale=(13.0 + 0.5, 16.0, H), pos=-BASE_X + 52.9)  # USB1
-cube_cut(scale=(13.0 + 0.5, 16.0, H), pos=-BASE_X + 71.6)  # USB2
-cube_cut(scale=(16.0 + 0.5, 19.5, H), pos=-BASE_X + 90.0)  # ETH
+cube_cut(scale=(6.7, 15.0, 4.0),    location=(-44.1, -31.5, 1.95))   # DC
+cube_cut(scale=(3.9, 13.2, 9.01),   location=(-35.7, -32.5, 4.495))  # USB-C
+cube_cut(scale=(6.3, 22.5, 9.01),   location=(-25.9, -29.5, 4.495))  # HDMI1
+cube_cut(scale=(6.3, 22.5, 9.01),   location=(-13.2, -29.5, 4.495))  # HDMI2
+cube_cut(scale=(14.0, 16.0, 9.01),  location=(2.4, -31.0, 4.495))    # USB1
+cube_cut(scale=(14.0, 16.0, 9.01),  location=(21.1, -31.0, 4.495))   # USB2
+cube_cut(scale=(16.5, 19.5, 9.01),  location=(39.5, -29.25, 4.495))  # ETH
 
 ################################################
 
 
-def cube_cut2(scale, pos):
+def cube_cut2(scale, location):
     base.cut_cube(
         target=top,
         scale=scale,
-        location=(pos, BASE_Y - scale[1] / 2 + 2, 0),
+        location=location,
     )
 
 
-cube_cut2(scale=(4.5 + 0.5, 3.5, 7.0), pos=BASE_X - 10.8)  # BUTTON1
-cube_cut2(scale=(4.5 + 0.5, 3.5, 7.0), pos=BASE_X - 17.7)  # BUTTON1
-cube_cut2(scale=(3.0 + 0.5, 3.5, 4.0), pos=BASE_X - 23.7)  # LED
-cube_cut2(scale=(6.5 + 0.5, 3.5, 8.0), pos=BASE_X - 31.6)  # USB-B?
+cube_cut2(scale=(5.0, 1.5, 5.0), location=(39.7, 38.25, 2.24))  # BUTTON1
+cube_cut2(scale=(5.0, 1.5, 5.0), location=(32.8, 38.25, 2.24))  # BUTTON1
+cube_cut2(scale=(3.5, 1.5, 3.2), location=(26.8, 38.25, 1.49))  # LED
+cube_cut2(scale=(7.0, 1.5, 5.2), location=(18.9, 38.25, 2.49))  # USB-B?
 
-#top.rotation_euler[0] = math.radians(180)
+#################################################
 
-################################################
+#top.rotation_euler[1] = math.pi
 
-
-#base.cut_cube(
-#    target=top,
-#        scale=(
-#            MAIN_WIDTH + MAIN_THICKNESS * 3,
-#            MAIN_HEIGHT + MAIN_THICKNESS * 3,
-#            MAIN_DEPTH1,
-#        ),
-#    location=(0, 0, MAIN_DEPTH1/2-MAIN_THICKNESS),
-#)
-
+#################################################
