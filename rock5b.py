@@ -169,24 +169,23 @@ def cube_cut(scale, pos):
 
 H = 15
 
-GAP = 0.5
 
 base.cut_cylinder(
     target=top,
-    radius=3.15 + GAP / 2,
+    radius=3.15 + 0.5 / 2,
     depth=5,
     location=(-BASE_X + 6.4, -BASE_Y + 5 / 2 - 2, 2),
     rotation=(math.pi / 2, 0, 0),
 )
 
 
-cube_cut(scale=(6.3 + GAP, H, 9.0), pos=-BASE_X + 6.4)  # DC
-cube_cut(scale=(3.4 + GAP, 13.0, H), pos=-BASE_X + 14.8)  # USB-C
-cube_cut(scale=(5.6 + GAP, 19.0, H), pos=-BASE_X + 24.6)  # HDMI1
-cube_cut(scale=(5.6 + GAP, 19.0, H), pos=-BASE_X + 37.3)  # HDMI2
-cube_cut(scale=(13.0 + GAP, 16.0, H), pos=-BASE_X + 52.9)  # USB1
-cube_cut(scale=(13.0 + GAP, 16.0, H), pos=-BASE_X + 71.6)  # USB2
-cube_cut(scale=(16.0 + GAP, 19.5, H), pos=-BASE_X + 90.0)  # ETH
+cube_cut(scale=(6.3 + 0.5, H, 9.0), pos=-BASE_X + 6.4)  # DC
+cube_cut(scale=(3.4 + 0.5, 13.0, H), pos=-BASE_X + 14.8)  # USB-C
+cube_cut(scale=(5.6 + 0.5, 19.0, H), pos=-BASE_X + 24.6)  # HDMI1
+cube_cut(scale=(5.6 + 0.5, 19.0, H), pos=-BASE_X + 37.3)  # HDMI2
+cube_cut(scale=(13.0 + 0.5, 16.0, H), pos=-BASE_X + 52.9)  # USB1
+cube_cut(scale=(13.0 + 0.5, 16.0, H), pos=-BASE_X + 71.6)  # USB2
+cube_cut(scale=(16.0 + 0.5, 19.5, H), pos=-BASE_X + 90.0)  # ETH
 
 ################################################
 
@@ -199,10 +198,10 @@ def cube_cut2(scale, pos):
     )
 
 
-cube_cut2(scale=(4.5 + GAP, 3.5, 7.0), pos=BASE_X - 10.8)  # BUTTON1
-cube_cut2(scale=(4.5 + GAP, 3.5, 7.0), pos=BASE_X - 17.7)  # BUTTON1
-cube_cut2(scale=(3.0 + GAP, 3.5, 4.0), pos=BASE_X - 23.7)  # LED
-cube_cut2(scale=(6.5 + GAP, 3.5, 8.0), pos=BASE_X - 31.6)  # USB-B?
+cube_cut2(scale=(4.5 + 0.5, 3.5, 7.0), pos=BASE_X - 10.8)  # BUTTON1
+cube_cut2(scale=(4.5 + 0.5, 3.5, 7.0), pos=BASE_X - 17.7)  # BUTTON1
+cube_cut2(scale=(3.0 + 0.5, 3.5, 4.0), pos=BASE_X - 23.7)  # LED
+cube_cut2(scale=(6.5 + 0.5, 3.5, 8.0), pos=BASE_X - 31.6)  # USB-B?
 
 #top.rotation_euler[0] = math.radians(180)
 
