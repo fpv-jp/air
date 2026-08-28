@@ -60,19 +60,17 @@ if TOP:
 if BOTTOM:
     bottom = create_case(MAIN_DEPTH2)
 
-BASE_X = MAIN_WIDTH / 2
-BASE_Y = MAIN_HEIGHT / 2
 def punch(obj):
     base.cut_holes(
         target=obj,
         radius=1.6,
         depth=MAIN_DEPTH,
         positions=[
-            (BASE_X - 3.56, -BASE_Y + 3.635),
-            (-BASE_X + 48.591, -BASE_Y + 3.635),
-            (-BASE_X + 3.462, -BASE_Y + 3.635),
-            (-BASE_X + 3.344, BASE_Y - 21.7),
-            (BASE_X - 3.66, BASE_Y - 29.705),
+            (52.04, -37.565),
+            (-7.009, -37.565),
+            (-52.138, -37.565),
+            (-52.256, 19.5),
+            (51.94, 11.495),
         ],
     )
     base.cut_holes(
@@ -80,8 +78,8 @@ def punch(obj):
         radius=1.6,
         depth=MAIN_DEPTH,
         positions=[
-            (-BASE_X + 22.48, BASE_Y - 39.18),
-            (-BASE_X + 73.88, BASE_Y - 59.18),
+            (-33.12, 2.02),
+            (18.28, -17.98),
         ],
     )
 
@@ -117,7 +115,7 @@ if TOP:
         scale=(50.7, 5.1, MAIN_DEPTH),
         location=(
             23.0,
-            -BASE_Y + 3.635,
+            -37.565,
             0
         ),
     )
@@ -160,7 +158,7 @@ if BOTTOM:
 
 
 def cut_Y(scale, x, r=False):
-    y = BASE_Y - scale[1]/2 + MAIN_THICKNESS + 0.001
+    y = MAIN_HEIGHT / 2 - scale[1]/2 + MAIN_THICKNESS + 0.001
     z = scale[2]/2 - 0.001
     if r:
         y = -y
@@ -173,26 +171,26 @@ def cut_Y(scale, x, r=False):
 ### --------------------------- 
 
 H = 15.0
-cut_Y(scale=(10.7, 14.1, H), x= BASE_X - 5.968)  # DC
-cut_Y(scale=(13.5, 18.2, H), x= BASE_X - 20.44)  # USB1
-cut_Y(scale=(13.5, 18.2, H), x= BASE_X - 37.38)  # USB2
-cut_Y(scale=( 6.2, 22.7, H), x=-BASE_X + 56.16)  # HDMI1
-cut_Y(scale=( 6.2, 22.7, H), x=-BASE_X + 42.31)  # HDMI2
-cut_Y(scale=(16.9, 21.6, H), x=-BASE_X + 28.115) # LAN1
-cut_Y(scale=(16.9, 21.6, H), x=-BASE_X + 9.091)  # LAN2
+cut_Y(scale=(10.7, 14.1, H), x=49.632)   # DC
+cut_Y(scale=(13.5, 18.2, H), x=35.16)    # USB1
+cut_Y(scale=(13.5, 18.2, H), x=18.22)    # USB2
+cut_Y(scale=(6.2, 22.7, H), x=0.56)      # HDMI1
+cut_Y(scale=(6.2, 22.7, H), x=-13.29)    # HDMI2
+cut_Y(scale=(16.9, 21.6, H), x=-27.485)  # LAN1
+cut_Y(scale=(16.9, 21.6, H), x=-46.509)  # LAN2
 
 ### --------------------------- 
 
-cut_Y(scale=(2.72, 2.626, 3.5), x=-BASE_X + 10.64, r=True)
-cut_Y(scale=(6.50, 2.626, 5.2), x=-BASE_X + 19.35, r=True)
-cut_Y(scale=(9.21, 2.626, 3.0), x=-BASE_X + (28.67 + 9.21 / 2), r=True)
-cut_Y(scale=(2.72, 2.626, 1.5), x=-BASE_X + 42.647, r=True)
+cut_Y(scale=(2.72, 2.626, 3.5), x=-44.96, r=True)
+cut_Y(scale=(6.50, 2.626, 5.2), x=-36.25, r=True)
+cut_Y(scale=(9.21, 2.626, 3.0), x=-22.325, r=True)
+cut_Y(scale=(2.72, 2.626, 1.5), x=-12.953, r=True)
 
 
 #################################################
 
 def cut_X(scale, y, r=False):
-    x = BASE_X - scale[0]/2  + MAIN_THICKNESS + 0.001
+    x = MAIN_WIDTH / 2 - scale[0]/2 + MAIN_THICKNESS + 0.001
     z = scale[2]/2 - 0.001
     if r:
         x = -x
@@ -204,9 +202,9 @@ def cut_X(scale, y, r=False):
 
 ### --------------------------- 
 
-cut_X(scale=(8.52, 15.687, 5.6), y=BASE_Y - (33.784 + 15.687 / 2))
-cut_X(scale=(2.72, 2.583, 3.5), y=BASE_Y - 20.946)
-cut_X(scale=(2.72, 2.626, 3.5), y=BASE_Y - 55.171)
+cut_X(scale=(8.52, 15.687, 5.6), y=-0.4275)
+cut_X(scale=(2.72, 2.583, 3.5), y=20.254)
+cut_X(scale=(2.72, 2.626, 3.5), y=-13.971)
 
 ### --------------------------- 
 
