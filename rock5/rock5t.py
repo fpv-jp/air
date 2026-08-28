@@ -66,11 +66,11 @@ def punch(obj):
         radius=1.6,
         depth=MAIN_DEPTH,
         positions=[
-            (52.04, -37.565),
-            (-7.009, -37.565),
-            (-52.138, -37.565),
-            (-52.256, 19.5),
-            (51.94, 11.495),
+            (52.0, -37.6),
+            (-7.0, -37.6),
+            (-52.1, -37.6),
+            (-52.3, 19.5),
+            (51.9, 11.5),
         ],
     )
     base.cut_holes(
@@ -78,8 +78,8 @@ def punch(obj):
         radius=1.6,
         depth=MAIN_DEPTH,
         positions=[
-            (-33.12, 2.02),
-            (18.28, -17.98),
+            (-33.1, 2.0),
+            (18.3, -18.0),
         ],
     )
 
@@ -115,7 +115,7 @@ if TOP:
         scale=(50.7, 5.1, MAIN_DEPTH),
         location=(
             23.0,
-            -37.565,
+            -37.6,
             0
         ),
     )
@@ -171,20 +171,20 @@ def cut_Y(scale, x, r=False):
 ### --------------------------- 
 
 H = 15.0
-cut_Y(scale=(10.7, 14.1, H), x=49.632)   # DC
-cut_Y(scale=(13.5, 18.2, H), x=35.16)    # USB1
-cut_Y(scale=(13.5, 18.2, H), x=18.22)    # USB2
-cut_Y(scale=(6.2, 22.7, H), x=0.56)      # HDMI1
-cut_Y(scale=(6.2, 22.7, H), x=-13.29)    # HDMI2
-cut_Y(scale=(16.9, 21.6, H), x=-27.485)  # LAN1
-cut_Y(scale=(16.9, 21.6, H), x=-46.509)  # LAN2
+cut_Y(scale=(10.7, 14.1, H), x=49.6)   # DC
+cut_Y(scale=(13.5, 18.2, H), x=35.2)   # USB1
+cut_Y(scale=(13.5, 18.2, H), x=18.2)   # USB2
+cut_Y(scale=(6.2, 22.7, H), x=0.6)     # HDMI1
+cut_Y(scale=(6.2, 22.7, H), x=-13.3)   # HDMI2
+cut_Y(scale=(16.9, 21.6, H), x=-27.5)  # LAN1
+cut_Y(scale=(16.9, 21.6, H), x=-46.5)  # LAN2
 
 ### --------------------------- 
 
-cut_Y(scale=(2.72, 2.626, 3.5), x=-44.96, r=True)  # PW switch
-cut_Y(scale=(6.50, 2.626, 5.2), x=-36.25, r=True)  # Audio Jack
-cut_Y(scale=(9.21, 2.626, 3.0), x=-22.325, r=True) # SPI
-cut_Y(scale=(2.72, 2.626, 1.5), x=-12.953, r=True) # USB-C
+cut_Y(scale=(2.7, 2.6, 3.5), x=-45.0, r=True)  # PW switch
+cut_Y(scale=(6.5, 2.6, 5.2), x=-36.3, r=True)  # Audio Jack
+cut_Y(scale=(9.2, 2.6, 3.0), x=-22.3, r=True)  # SPI
+cut_Y(scale=(2.7, 2.6, 1.5), x=-13.0, r=True)  # USB-C
 
 
 #################################################
@@ -202,9 +202,9 @@ def cut_X(scale, y, r=False):
 
 ### --------------------------- 
 
-cut_X(scale=(8.52, 15.687, 5.6), y=-0.4275) # Maskrom BTN
-cut_X(scale=(2.72, 2.583, 3.5), y=20.254)   # HDMI
-cut_X(scale=(2.72, 2.626, 3.5), y=-13.971)  # Recovery BTN
+cut_X(scale=(8.5, 15.7, 5.6), y=-0.4)  # Maskrom BTN
+cut_X(scale=(2.7, 2.6, 3.5), y=20.3)   # HDMI
+cut_X(scale=(2.7, 2.6, 3.5), y=-14.0)  # Recovery BTN
 
 ### --------------------------- 
 
