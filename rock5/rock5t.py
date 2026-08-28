@@ -11,7 +11,10 @@ sys.modules[module_name] = module
 
 import base
 
+bpy.data.objects.get("5T_PCBA_X1_0_20250110_ASM").hide_set(True)
 base.init()
+bpy.data.objects.get("5T_PCBA_X1_0_20250110_ASM").hide_set(False)
+
 
 TOP = True
 BOTTOM = True
@@ -19,7 +22,7 @@ BOTTOM = False
     
 # main -----------------------------------
 MAIN_WIDTH = 111.2
-MAIN_HEIGHT = 82.4
+MAIN_HEIGHT = 83.0
 
 MAIN_DEPTH = 9.0
 MAIN_DEPTH1 = 9.0
@@ -171,13 +174,13 @@ def cut_Y(scale, x, r=False):
 ### --------------------------- 
 
 H = 15.0
-cut_Y(scale=(10.7, 14.1, H), x=49.6)   # DC
-cut_Y(scale=(13.5, 18.2, H), x=35.2)   # USB1
-cut_Y(scale=(13.5, 18.2, H), x=18.2)   # USB2
-cut_Y(scale=(6.2, 22.7, H), x=0.6)     # HDMI1
-cut_Y(scale=(6.2, 22.7, H), x=-13.3)   # HDMI2
-cut_Y(scale=(16.9, 21.6, H), x=-27.5)  # LAN1
-cut_Y(scale=(16.9, 21.6, H), x=-46.5)  # LAN2
+cut_Y(scale=(10.6, 12.6, H), x=  49.2) # DC
+cut_Y(scale=(14.4, 16.9, H), x=  34.8) # USB1
+cut_Y(scale=(14.4, 16.9, H), x=  16.8) # USB2
+cut_Y(scale=( 5.9, 21.7, H), x=  1.1)  # HDMI1
+cut_Y(scale=( 5.9, 21.7, H), x=-12.8)  # HDMI2
+cut_Y(scale=(16.4, 20.4, H), x=-26.8)  # LAN1
+cut_Y(scale=(16.4, 20.4, H), x=-45.9)  # LAN2
 
 ### --------------------------- 
 
@@ -211,14 +214,17 @@ cut_X(scale=(2.7, 2.6, 3.5), y=-14.0)  # Recovery BTN
 cut_X(scale=(6.7, 15.0, 4.0), y=3.0, r=True)
 
 
-##################################################
+# ##################################################
+if TOP:
+    top.location[0] = 8.1
+    top.location[1] = 1.3
 
-top.rotation_euler[1] = math.pi
+# top.rotation_euler[1] = math.pi
 
-##################################################
+# ##################################################
 
-base.cut_cube(
-    target=top,
-    scale=(MAIN_WIDTH*1.2, MAIN_HEIGHT*1.2, MAIN_DEPTH1),
-    location=(0, 0, MAIN_THICKNESS+MAIN_DEPTH1/2),
-)
+# base.cut_cube(
+#     target=top,
+#     scale=(MAIN_WIDTH*1.2, MAIN_HEIGHT*1.2, MAIN_DEPTH1),
+#     location=(0, 0, MAIN_THICKNESS+MAIN_DEPTH1/2),
+# )
