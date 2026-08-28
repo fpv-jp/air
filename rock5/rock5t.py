@@ -68,11 +68,11 @@ def punch(obj):
         radius=1.6,
         depth=MAIN_DEPTH,
         positions=[
-            (52.0, -37.6),
-            (-7.0, -37.6),
-            (-52.1, -37.6),
-            (-52.3, 19.5),
-            (51.9, 11.5),
+            ( 52.0, -37.6),
+            ( -6.8, -37.6),
+            (-52.0, -37.6),
+            (-52.0,  19.5),
+            ( 52.0,  11.5),
         ],
     )
     base.cut_holes(
@@ -80,8 +80,8 @@ def punch(obj):
         radius=1.6,
         depth=MAIN_DEPTH,
         positions=[
-            (-33.1, 2.0),
-            (18.3, -18.0),
+            (-32.6, 2.0),
+            (18.9, -18.0),
         ],
     )
 
@@ -217,7 +217,7 @@ cut_X(scale=(3.0,  3.0, 4.8), y=-13.6) # Recovery BTN
 if TOP:
     top.location[0] = 8.1
     top.location[1] = 1.3
-    top.location[2] = 0.0
+    top.location[2] = -MAIN_DEPTH1/2+1.5
 
 # top.rotation_euler[1] = math.pi
 
