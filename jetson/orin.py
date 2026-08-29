@@ -1,5 +1,4 @@
 import bpy
-import math
 import sys
 import types
 
@@ -11,18 +10,18 @@ sys.modules[module_name] = module
 
 import base
 
-bpy.data.objects.get("000_ARVALA_TLA_ASM").hide_set(True)
+assembly = bpy.data.objects.get("000_ARVALA_TLA_ASM")
+assembly.hide_set(True)
 base.init()
-bpy.data.objects.get("000_ARVALA_TLA_ASM").hide_set(False)
-#bpy.data.objects.get("000_ARVALA_TLA_ASM").location=(-46.0, -22.6, -7.8)
-bpy.data.objects.get("000_ARVALA_TLA_ASM").location=(-46.0, -22.6, -1.6)
+assembly.hide_set(False)
+assembly.location = (-46.0, -22.6, -1.6)
 
 MAIN_WIDTH = 100.0
 MAIN_HEIGHT = 79.0
 MAIN_DEPTH = 12.0
 
 MAIN_THICKNESS = 2.0
-MAIN_GAP = 0.15
+MAIN_GAP = 0.2
 
 main = base.create_cube(
     scale=(MAIN_WIDTH + MAIN_THICKNESS, MAIN_HEIGHT + MAIN_THICKNESS, MAIN_DEPTH),
@@ -31,75 +30,67 @@ base.cut_corners(
     target=main,
     width=MAIN_WIDTH,
     height=MAIN_HEIGHT,
-    depth=MAIN_DEPTH - MAIN_THICKNESS/2,
-    thickness=MAIN_THICKNESS/2,
+    depth=MAIN_DEPTH - MAIN_THICKNESS / 2,
+    thickness=MAIN_THICKNESS / 2,
 )
 base.cut_cube(
     target=main,
     scale=(MAIN_WIDTH + MAIN_GAP, MAIN_HEIGHT + MAIN_GAP, MAIN_DEPTH),
-    location=(0, 0, -MAIN_THICKNESS/2),
+    location=(0, 0, -MAIN_THICKNESS / 2),
 )
 
-M2 = 1.25
-
-x = 43
-y = 29
-
-x2 = -3
-y2 = 7
+M2_RADIUS = 1.3
 
 base.cut_holes(
     target=main,
-    radius=M2,
+    radius=M2_RADIUS,
     depth=MAIN_DEPTH + MAIN_THICKNESS,
     positions=[
-        (x + x2, y + y2),
-        (x + x2, -y + y2),
-        (-x + x2, y + y2),
-        (-x + x2, -y + y2),
+        (40.0, 36.0),
+        (40.0, -22.0),
+        (-46.0, 36.0),
+        (-46.0, -22.0),
     ],
 )
 
-## ---------------------------------------
-
-BASE_X = MAIN_WIDTH / 2
-BASE_Y = MAIN_HEIGHT / 2
+# ----------------------------------------
 
 
-def cube_cut(scale, pos):
-    y = -BASE_Y + scale[1] / 2 - 2
+def cut_bottom_opening(scale, x):
+    y = -MAIN_HEIGHT / 2 + scale[1] / 2 - MAIN_THICKNESS
     z = (scale[2] - MAIN_DEPTH - MAIN_THICKNESS) / 2
     base.cut_cube(
         target=main,
         scale=scale,
-        location=(pos, y, z),
+        location=(x, y, z),
     )
 
 
-H = 5
+OPENING_DEPTH = 5.0
 
-cube_cut(scale=(9.5, H, 12.2), pos=-BASE_X + 6)  # DC
-cube_cut(scale=(18.7, H, 7.9), pos=-BASE_X + 22.8)  # DP
-cube_cut(scale=(14.4, 18.7, 18.5), pos=-BASE_X + 42.6)  # USB1
-cube_cut(scale=(14.4, 18.7, 18.5), pos=-BASE_X + 59.6)  # USB2
-cube_cut(scale=(16.5, 22.5, 15.1), pos=-BASE_X + 76.9)  # LAN
-cube_cut(scale=(9.3, H, 4.7), pos=-BASE_X + 91.9)  # USB-C
+cut_bottom_opening(scale=(9.5, OPENING_DEPTH, 12.2), x=-44.0)  # DC
+cut_bottom_opening(scale=(18.7, OPENING_DEPTH, 7.9), x=-27.2)  # DP
+cut_bottom_opening(scale=(14.4, 18.7, 18.5), x=-7.4)  # USB1
+cut_bottom_opening(scale=(14.4, 18.7, 18.5), x=9.6)  # USB2
+cut_bottom_opening(scale=(16.5, 22.5, 15.1), x=26.9)  # LAN
+cut_bottom_opening(scale=(9.3, OPENING_DEPTH, 4.7), x=41.9)  # USB-C
 
-## ---------------------------------------
+# ----------------------------------------
 
-def cube_cut2(scale, posx, posy):
+
+def cut_opening(scale, x, y):
     z = (scale[2] - MAIN_DEPTH - MAIN_THICKNESS) / 2
     base.cut_cube(
         target=main,
         scale=scale,
-        location=(posx, posy, z),
+        location=(x, y, z),
     )
 
 
-cube_cut2(scale=(59.0, 40.0, 25.3), posx=-BASE_X + 48, posy=BASE_Y - 20.0)
-cube_cut2(scale=(5.8, 51.0, 25.3), posx=BASE_X - 4.2, posy=BASE_Y - 32.5)
-cube_cut2(scale=(6.8, 3.0, 25.3), posx=BASE_X - 19.2, posy=BASE_Y - 8.5)
+cut_opening(scale=(59.0, 40.0, 25.3), x=-2.0, y=19.5)
+cut_opening(scale=(5.8, 51.0, 25.3), x=45.8, y=7.0)
+cut_opening(scale=(6.8, 3.0, 25.3), x=30.8, y=31.0)
 
-## ---------------------------------------
-main.location[2] = MAIN_DEPTH/2
-#main.rotation_euler = (math.radians(180), 0, 0)
+# ----------------------------------------
+
+main.location[2] = MAIN_DEPTH / 2
