@@ -34,6 +34,8 @@ def set_color(obj, name, color):
     if material is None:
         material = bpy.data.materials.new(name)
 
+    material.diffuse_color = (*color, 1.0)
+
     if obj.data.materials:
         obj.data.materials[0] = material
     else:
