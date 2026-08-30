@@ -29,6 +29,15 @@ def init():
     else:
         raise RuntimeError("No 3D View found. Please run the script in a 3D View.")
 
+def set_color(obj, name, color):
+    material = bpy.data.materials.get(name)
+    if material is None:
+        material = bpy.data.materials.new(name)
+
+    if obj.data.materials:
+        obj.data.materials[0] = material
+    else:
+        obj.data.materials.append(material)
 
 def _apply_boolean(target, obj, operation, name, solver="EXACT"):
     """Apply boolean modifier and remove the tool object."""
