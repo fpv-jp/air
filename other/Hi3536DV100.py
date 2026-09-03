@@ -123,7 +123,7 @@ base.cut_cylinder(
     target=main,
     radius=4.2,
     depth=MAIN_THICKNESS*3,
-    location=(4.2+3.0, 0, -1.7),
+    location=(4.2+3.0, 0, -2.0),
     rotation=(math.pi / 2, 0, 0),
 )
 
