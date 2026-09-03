@@ -151,16 +151,20 @@ main.location = (0, 0, 0)
 
 # ===============================
 
+DEPTH = MAIN_DEPTH_TOP - MAIN_DEPTH_BOTTOM + .5
+
+# ===============================
+
 #scale=(
 #    MAIN_WIDTH + MAIN_THICKNESS * 3,
 #    MAIN_HEIGHT + MAIN_THICKNESS * 3,
-#    MAIN_DEPTH_TOP+MAIN_THICKNESS,
+#    MAIN_DEPTH,
 #)
 
 #location=(
 #    0, 
 #    0, 
-#    (MAIN_DEPTH-MAIN_DEPTH_TOP+MAIN_THICKNESS)/2,
+#    MAIN_DEPTH/2-DEPTH,
 #)
 
 #base.cut_cube(target=main, scale=scale, location=location)
@@ -170,14 +174,14 @@ main.location = (0, 0, 0)
 #scale=(
 #    MAIN_WIDTH + MAIN_THICKNESS * 3,
 #    MAIN_HEIGHT + MAIN_THICKNESS * 3,
-#    MAIN_DEPTH_BOTTOM+MAIN_THICKNESS,
+#    MAIN_DEPTH,
 #)
 
 #location=(
 #    0, 
 #    0, 
-#    (-MAIN_DEPTH+MAIN_DEPTH_BOTTOM-MAIN_THICKNESS)/2,
+#    -MAIN_DEPTH/2-DEPTH,
 #)
 
 #base.cut_cube(target=main, scale=scale, location=location)
-#main.rotation_euler[1] = math.pi
+#main.rotation_euler[0] = math.pi
