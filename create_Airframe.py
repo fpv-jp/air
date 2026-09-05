@@ -55,7 +55,6 @@ def create_motor(sharpen):
     motor = base.create_cylinder(
         radius=MOTOR_radius * 0.9 - sharpen,
         depth=MOTOR_radius * 8,
-        location=(0.0, 0.0, sharpen),
         vertices=64,
     )
 
@@ -76,8 +75,6 @@ def create_motor(sharpen):
         )
     motor.rotation_euler[2] = math.pi / 4
 
-    # テーバをつける
-    base.taper(motor, segments=64, curve="tear", power=0.75)
     return motor
 
 
