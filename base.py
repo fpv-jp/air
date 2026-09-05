@@ -495,6 +495,24 @@ def copy(obj, location=None, rotation=None, name=None):
     return new_obj
 
 
+def shrink(obj, thickness, name=None):
+    """Duplicate obj and shrink it by offsetting every vertex inward along its normal.
+    Unlike rebuilding the shape with smaller parameters, this keeps the exact same
+    topology/curvature, so the result can be used for a roughly constant-thickness
+    hollow via boolean DIFFERENCE even on non-cylindrical (e.g. tapered/teardrop) shapes.
+    """
+    new_obj = copy(obj, name=name or f"{obj.name}_shrunk")
+    bm = bmesh.new()
+    bm.from_mesh(new_obj.data)
+    bm.normal_update()
+    for v in bm.verts:
+        v.co -= v.normal * thickness
+    bm.to_mesh(new_obj.data)
+    bm.free()
+    new_obj.data.update()
+    return new_obj
+
+
 def join(target, obj):
     """Join two objects into one."""
     bpy.context.view_layer.objects.active = target
