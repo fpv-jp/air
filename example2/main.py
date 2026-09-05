@@ -36,34 +36,6 @@ BODY_height = BODY_radius * 12  # ボディの高さ
 
 WALL_hickness = 1.5  # 基本とする壁の厚み
 
-#BUILD_TOP = True
-#BUILD_TOP = False
-
-#BUILD_MIDDLE = True
-#BUILD_MIDDLE = False
-
-#BUILD_BOTTOM = True
-#BUILD_BOTTOM = False
-
-
-# -------------------------------------------------------
-# モータ
-# -------------------------------------------------------
-def create_motor(sharpen):
-
-    # --- スピンナー(モータ直径より少し小さくする) ---
-    motor = base.create_cylinder(
-        radius=MOTOR_radius * 0.9 - sharpen,
-        depth=MOTOR_radius * 8,
-        location=(0.0, 0.0, sharpen),
-        vertices=64,
-    )
-
-    # テーバをつける
-    base.taper(motor, segments=64, curve="tear", power=0.75)
-    return motor
-
-
 # -------------------------------------------------------
 # アーム
 # -------------------------------------------------------
@@ -114,19 +86,55 @@ def create_arm(sharpen):
     # --- アーム 中央 上部 と 下部 を 結合 ---
     base.modifier_apply(obj=arm_bottom, target=arm, operation="UNION")
     
-    if sharpen2 == 0:
-        base.cut_cube(
-            target=arm,
-            scale=(100, 100, 150),
-            location=(0.0, -45.0, 0.0),
-        )
-        base.cut_cube(
-            target=arm,
-            scale=(100, 100, 100),
-            location=(0.0, 47.5 + DRONE_SIZE/2, 0.0),
-        )
-
     return arm
+
+# -------------------------------------------------------
+# モータ
+# -------------------------------------------------------
+def create_motor(sharpen):
+
+    # --- スピンナー(モータ直径より少し小さくする) ---
+    motor = base.create_cylinder(
+        radius=MOTOR_radius - sharpen,
+        depth=MOTOR_radius * 8,
+        location=(0.0, 0.0, sharpen),
+        vertices=64,
+    )
+
+    # テーバをつける
+    base.taper(motor, segments=64, curve="tear", power=0.75)
+    return motor
+
+# -------------------------------------------------------
+# モータ
+# -------------------------------------------------------
+def create_motor_cap():
+
+    # --- スピンナー(モータ直径より少し小さくする) ---
+    motor = base.create_cylinder(
+        radius=MOTOR_radius - 1,
+        depth=4.0,
+        vertices=64,
+    )
+
+    # モータ の取り付け穴 ----------------------------
+    MOTOR_PITCH = 19.0 / 2  # モータの取り付け穴ピッチ
+    MOTOR_HOLES = [
+        (MOTOR_PITCH, 0),
+        (-MOTOR_PITCH, 0),
+        (0, MOTOR_PITCH),
+        (0, -MOTOR_PITCH),
+    ]
+    for i, (x, y) in enumerate(MOTOR_HOLES):
+        base.cut_cylinder(
+            target=motor,
+            radius=4.0,
+            depth=53.0,
+            location=(x, y, 0.0),
+        )
+    motor.rotation_euler[2] = math.pi / 4
+
+    return motor
 
 # -------------------------------------------------------
 # アーム + モータ
@@ -140,11 +148,10 @@ def create_motor_arm():
     arm_inner = create_arm(WALL_hickness)
     base.modifier_apply(obj=arm_inner, target=arm, operation="DIFFERENCE")
 
-    location = (0, MOTOR_PITCH, 16.0)  # アーム に対して モータ を取り付ける位置
 
     # --- モータ ---
     motor = create_motor(0)
-    motor.location = location
+    motor.location = (0, MOTOR_PITCH, 16.0)  # アーム に対して モータ を取り付ける位置
 
     base.cut_cylinder(
         target=arm,
@@ -158,13 +165,18 @@ def create_motor_arm():
 
     # --- モータの 中をくり抜く ---
     motor_inner = create_motor(WALL_hickness)
-    motor_inner.location = location
+    motor_inner.location = (0, MOTOR_PITCH, 16.0)  # アーム に対して モータ を取り付ける位置
     base.modifier_apply(obj=motor_inner, target=arm, operation="DIFFERENCE")
-
+    
+    # add cap
+    motor_cap = create_motor_cap()
+    motor_cap.location = (0, MOTOR_PITCH, -4.85)
+    base.modifier_apply(obj=motor_cap, target=arm, operation="UNION")
+    
     # --- モータ の下部をカット ---
     base.cut_cylinder(
         target=arm,
-        radius=MOTOR_radius + WALL_hickness,
+        radius=MOTOR_radius,
         depth=100.0,
         location=(0.0, MOTOR_PITCH, 50.0 - 4.85),
         vertices=64,
@@ -240,3 +252,7 @@ base.modifier_apply(obj=motor_arm4, target=body, operation="UNION")
 # --- ボディ を中空化 ---
 body_inner = create_body(WALL_hickness)
 base.modifier_apply(obj=body_inner, target=body, operation="DIFFERENCE")
+
+## --------------------------------------------
+
+body.rotation_euler[0] = math.pi
