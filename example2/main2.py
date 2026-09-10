@@ -43,12 +43,12 @@ BUILD_MIDDLE = True
 BUILD_MIDDLE = False
 
 BUILD_BOTTOM = True
-#BUILD_BOTTOM = False
+BUILD_BOTTOM = False
 
 H = 280
 R = 140
 
-L_TOP = -17
+L_TOP = 43
 L_BOTTOM = -73
 
 # -------------------------------------------------------
@@ -57,7 +57,14 @@ L_BOTTOM = -73
 if BUILD_TOP:
     base.cut_cylinder(
         target=_main, radius=R, depth=H,
-        location=(0.0, 0.0, H / 2 + L_TOP),
+        location=(0.0, 0.0, -H / 2 + L_TOP),
+    )
+#   base.create_cylinder(
+    base.cut_cylinder(
+        target=_main, 
+        radius=3.0, depth=10,
+        rotation=(-math.pi / 4, 0, 0),
+        location=(0.0, 12.0, 165.0),
     )
 
 # -------------------------------------------------------
@@ -72,6 +79,8 @@ if BUILD_MIDDLE:
         target=_main, radius=R, depth=H,
         location=(0.0, 0.0, -H / 2 + L_BOTTOM),
     )
+    # そのままだと3Dプリンタのサイズを超えるので調整
+    _main.rotation_euler = (0, 0, math.pi / 4)
 
 # -------------------------------------------------------
 # BUILD_BOTTOM
@@ -98,6 +107,8 @@ if BUILD_BOTTOM:
             location=(0.0, 0.0, -28.5 - ARM_position),
             rotation=(x, y, 0),
         )
+    # そのままだと3Dプリンタのサイズを超えるので調整
+    _main.rotation_euler = (0, 0, math.pi / 4)
 
 ## -------------------------------------------------------
 ## モータ
