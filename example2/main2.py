@@ -37,7 +37,7 @@ BODY_height = BODY_radius * 12  # ボディの高さ
 WALL_hickness = 1.5  # 基本とする壁の厚み
 
 BUILD_TOP = True
-#BUILD_TOP = False
+BUILD_TOP = False
 
 BUILD_MIDDLE = True
 BUILD_MIDDLE = False
@@ -50,6 +50,18 @@ R = 140
 
 L_TOP = 43
 L_BOTTOM = -73
+
+def screw(pos):
+    for i, (z) in enumerate([(math.pi / 4),(-math.pi / 4)]):
+        base.create_cylinder(
+            radius=1.75,
+            depth=BODY_radius*3,
+            location=(0.0, 0.0, pos),
+            rotation=(math.pi / 2, 0, z),
+        )
+
+screw(L_TOP)
+screw(L_BOTTOM)
 
 # -------------------------------------------------------
 # BUILD_TOP

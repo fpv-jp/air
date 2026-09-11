@@ -10,7 +10,16 @@ exec(text.as_string(), module.__dict__)
 sys.modules[module_name] = module
 
 import base
+
+motor_arm1 = bpy.data.objects.get("wing_fixed")
+if motor_arm1:
+    motor_arm1.hide_set(True)
+
 base.init()
+
+if motor_arm1:
+    motor_arm1.hide_set(False)
+
 
 adjustment = 1.47  # アームの長さ/モータ位置を調整する倍率
 
@@ -173,7 +182,12 @@ def create_motor_arm():
         location=(0.0, MOTOR_PITCH, 50.0 - 4.85),
         vertices=64,
     )
-
+    
+    base.cut_cube(
+        target=arm,
+        scale=(ARM_hickness+1, 20, 80),
+        location=(0.0, -5.0, -16.0),
+    )
     return arm
 
 # -------------------------------------------------------
@@ -216,13 +230,14 @@ def create_body(sharpen):
 ## --------------------------------------------
 
 # アーム + モータ
-motor_arm1 = create_motor_arm()
+#motor_arm1 = create_motor_arm()
+
 motor_arm1.location[2] = ARM_position  # ボディに対して取り付ける位置を調整
 
 # 他の アーム + モータ をコピー
-motor_arm2 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, math.pi))
-motor_arm3 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, math.pi / 2))
-motor_arm4 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, -math.pi / 2))
+motor_arm2 = base.copy(motor_arm1, rotation=(0, 0, math.pi))
+motor_arm3 = base.copy(motor_arm1, rotation=(0, 0, math.pi / 2))
+motor_arm4 = base.copy(motor_arm1, rotation=(0, 0, -math.pi / 2))
 
 # --- ボディ ---
 body = create_body(0)
@@ -245,7 +260,7 @@ base.modifier_apply(obj=motor_arm4, target=body, operation="UNION")
 body_inner = create_body(WALL_hickness)
 base.modifier_apply(obj=body_inner, target=body, operation="DIFFERENCE")
 
-## --------------------------------------------
+### --------------------------------------------
 
 def create_body2():
     body2 = base.create_cube(
@@ -267,6 +282,6 @@ body2 = create_body2()
 body2.rotation_euler[2] = -math.pi / 4
 base.modifier_apply(obj=body2, target=body, operation="UNION")
 
-## --------------------------------------------
+### --------------------------------------------
 
 body.rotation_euler[0] = math.pi
