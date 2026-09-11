@@ -10,15 +10,7 @@ exec(text.as_string(), module.__dict__)
 sys.modules[module_name] = module
 
 import base
-
-_test5 = bpy.data.objects.get("test5")
-if _test5:
-    _test5.hide_set(True)
-
 base.init()
-
-if _test5:
-    _test5.hide_set(False)
 
 adjustment = 1.47  # アームの長さ/モータ位置を調整する倍率
 
@@ -252,6 +244,28 @@ base.modifier_apply(obj=motor_arm4, target=body, operation="UNION")
 # --- ボディ を中空化 ---
 body_inner = create_body(WALL_hickness)
 base.modifier_apply(obj=body_inner, target=body, operation="DIFFERENCE")
+
+## --------------------------------------------
+
+def create_body2():
+    body2 = base.create_cube(
+        scale=(59, 7, BODY_height / 2.4),
+        location=(0.0, 0.0, 15.0),
+    )
+    base.cut_cube(
+        target=body2,
+        scale=(56.4, 7, BODY_height / 2.3),
+        location=(0.0, 0.0, 15.0),
+    )
+    return body2
+
+body2 = create_body2()
+body2.rotation_euler[2] = math.pi / 4
+base.modifier_apply(obj=body2, target=body, operation="UNION")
+
+body2 = create_body2()
+body2.rotation_euler[2] = -math.pi / 4
+base.modifier_apply(obj=body2, target=body, operation="UNION")
 
 ## --------------------------------------------
 
