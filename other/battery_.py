@@ -33,6 +33,7 @@ main = base.create_cube(
 
 P = 19.8
 for i, (p) in enumerate([(P*1.5),(P/2),(-P/2),(-P*1.5)]):
+    
     base.add_cube(
         target=main,
         scale=(
@@ -42,6 +43,7 @@ for i, (p) in enumerate([(P*1.5),(P/2),(-P/2),(-P*1.5)]):
         ),
         location=(p, 0.0, 0.0),
     )
+    
     base.cut_cube(
         target=main,
         scale=(
@@ -61,6 +63,20 @@ for i, (p) in enumerate([(P*1.5),(P/2),(-P/2),(-P*1.5)]):
         ),
         location=(p, 0.0, 0.0),
     )
+    
+    base.cut_cylinder(
+        target=main,
+        radius=1.35,
+        depth=MAIN_DEPTH*2,
+        location=(p, MAIN_WIDTH/2, 0.0),
+    )
+    base.cut_cylinder(
+        target=main,
+        radius=1.35,
+        depth=MAIN_DEPTH*2,
+        location=(p, -MAIN_WIDTH/2, 0.0),
+    )
+    
 
 # --------------------------------
 
