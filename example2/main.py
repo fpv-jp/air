@@ -347,3 +347,4 @@ base.cut_cube(
     scale=(62.0, 62.0, BODY_height / 2.3 - 4),
     location=(0.0, 10.0, -15.0),
 )
+body3.rotation_euler=(math.pi / 2,math.pi / 4,0)
