@@ -50,20 +50,22 @@ R = 140
 
 L_TOP = 43
 L_BOTTOM = -73
-
+    
 def screw(pos):
+    c = base.create_cylinder(radius=0.5, depth=0.5,)
     for i, (z) in enumerate([(math.pi / 4),(-math.pi / 4)]):
         for i, (p) in enumerate([(pos+6),(pos-6)]):
-            base.cut_cylinder(
-                target=_main,
+            base.add_cylinder(
+                target=c,
                 radius=1.5,
                 depth=BODY_radius*3,
                 location=(0.0, 0.0, p),
                 rotation=(math.pi / 2, 0, z),
             )
+    return c
 
-screw(L_TOP)
-screw(L_BOTTOM)
+base.modifier_apply(obj=screw(L_TOP), target=_main, operation="DIFFERENCE")
+base.modifier_apply(obj=screw(L_BOTTOM), target=_main, operation="DIFFERENCE")
 
 # -------------------------------------------------------
 # BUILD_TOP
