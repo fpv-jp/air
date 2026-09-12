@@ -11,14 +11,14 @@ sys.modules[module_name] = module
 
 import base
 
-motor_arm1 = bpy.data.objects.get("wing_fixed")
-if motor_arm1:
-    motor_arm1.hide_set(True)
+#motor_arm1 = bpy.data.objects.get("wing_fixed")
+#if motor_arm1:
+#    motor_arm1.hide_set(True)
 
 base.init()
 
-if motor_arm1:
-    motor_arm1.hide_set(False)
+#if motor_arm1:
+#    motor_arm1.hide_set(False)
 
 
 adjustment = 1.47  # アームの長さ/モータ位置を調整する倍率
@@ -36,6 +36,12 @@ BODY_radius = 30.0  # ボディの半径
 BODY_height = BODY_radius * 12  # ボディの高さ
 
 WALL_hickness = 1.5  # 基本とする壁の厚み
+
+H = 280
+R = 140
+
+L_TOP = 43
+L_BOTTOM = -73
 
 # -------------------------------------------------------
 # アーム
@@ -230,14 +236,13 @@ def create_body(sharpen):
 ## --------------------------------------------
 
 # アーム + モータ
-#motor_arm1 = create_motor_arm()
-
+motor_arm1 = create_motor_arm()
 motor_arm1.location[2] = ARM_position  # ボディに対して取り付ける位置を調整
 
 # 他の アーム + モータ をコピー
-motor_arm2 = base.copy(motor_arm1, rotation=(0, 0, math.pi))
-motor_arm3 = base.copy(motor_arm1, rotation=(0, 0, math.pi / 2))
-motor_arm4 = base.copy(motor_arm1, rotation=(0, 0, -math.pi / 2))
+motor_arm2 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, math.pi))
+motor_arm3 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, math.pi / 2))
+motor_arm4 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, -math.pi / 2))
 
 # --- ボディ ---
 body = create_body(0)
@@ -262,14 +267,15 @@ base.modifier_apply(obj=body_inner, target=body, operation="DIFFERENCE")
 
 ### --------------------------------------------
 
+
 def create_body2():
     body2 = base.create_cube(
-        scale=(59, 7, BODY_height / 2.4),
+        scale=(59, 7, BODY_height / 2.4 - 4),
         location=(0.0, 0.0, 15.0),
     )
     base.cut_cube(
         target=body2,
-        scale=(56.4, 7, BODY_height / 2.3),
+        scale=(56.4, 7, BODY_height / 2.3 - 4),
         location=(0.0, 0.0, 15.0),
     )
     return body2
@@ -285,3 +291,21 @@ base.modifier_apply(obj=body2, target=body, operation="UNION")
 ### --------------------------------------------
 
 body.rotation_euler[0] = math.pi
+
+### --------------------------------------------
+
+def screw(pos):
+    c = base.create_cylinder(radius=0.5, depth=0.5,)
+    for i, (z) in enumerate([(math.pi / 4),(-math.pi / 4)]):
+        for i, (p) in enumerate([(pos+8),(pos-8)]):
+            base.add_cylinder(
+                target=c,
+                radius=1.5,
+                depth=BODY_radius*3,
+                location=(0.0, 0.0, p),
+                rotation=(math.pi / 2, 0, z),
+            )
+    return c
+
+base.modifier_apply(obj=screw(L_TOP), target=body, operation="DIFFERENCE")
+base.modifier_apply(obj=screw(L_BOTTOM), target=body, operation="DIFFERENCE")
