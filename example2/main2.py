@@ -53,14 +53,14 @@ L_BOTTOM = -73
 
 def screw(pos):
     for i, (z) in enumerate([(math.pi / 4),(-math.pi / 4)]):
-        base.cut_cylinder(
-        target=_main,
-#        base.create_cylinder(
-            radius=1.75,
-            depth=BODY_radius*3,
-            location=(0.0, 0.0, pos),
-            rotation=(math.pi / 2, 0, z),
-        )
+        for i, (p) in enumerate([(pos+6),(pos-6)]):
+            base.cut_cylinder(
+                target=_main,
+                radius=1.5,
+                depth=BODY_radius*3,
+                location=(0.0, 0.0, p),
+                rotation=(math.pi / 2, 0, z),
+            )
 
 screw(L_TOP)
 screw(L_BOTTOM)
