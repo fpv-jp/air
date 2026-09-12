@@ -235,14 +235,14 @@ def create_body(sharpen):
 ## --- アッセンブリ ---------------------------
 ## --------------------------------------------
 
-# アーム + モータ
-motor_arm1 = create_motor_arm()
-motor_arm1.location[2] = ARM_position  # ボディに対して取り付ける位置を調整
+## アーム + モータ
+#motor_arm1 = create_motor_arm()
+#motor_arm1.location[2] = ARM_position  # ボディに対して取り付ける位置を調整
 
-# 他の アーム + モータ をコピー
-motor_arm2 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, math.pi))
-motor_arm3 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, math.pi / 2))
-motor_arm4 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, -math.pi / 2))
+## 他の アーム + モータ をコピー
+#motor_arm2 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, math.pi))
+#motor_arm3 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, math.pi / 2))
+#motor_arm4 = base.copy(motor_arm1, rotation=(math.pi / 8, 0, -math.pi / 2))
 
 # --- ボディ ---
 body = create_body(0)
@@ -255,11 +255,11 @@ base.cut_cylinder(
     location=(0.0, 0.0, 190.0),
 )
 
-# --- ボディ に腕を結合 ---
-base.modifier_apply(obj=motor_arm1, target=body, operation="UNION")
-base.modifier_apply(obj=motor_arm2, target=body, operation="UNION")
-base.modifier_apply(obj=motor_arm3, target=body, operation="UNION")
-base.modifier_apply(obj=motor_arm4, target=body, operation="UNION")
+## --- ボディ に腕を結合 ---
+#base.modifier_apply(obj=motor_arm1, target=body, operation="UNION")
+#base.modifier_apply(obj=motor_arm2, target=body, operation="UNION")
+#base.modifier_apply(obj=motor_arm3, target=body, operation="UNION")
+#base.modifier_apply(obj=motor_arm4, target=body, operation="UNION")
 
 # --- ボディ を中空化 ---
 body_inner = create_body(WALL_hickness)
@@ -290,12 +290,8 @@ base.modifier_apply(obj=body2, target=body, operation="UNION")
 
 ### --------------------------------------------
 
-body.rotation_euler[0] = math.pi
-
-### --------------------------------------------
-
 def screw(pos):
-    c = base.create_cylinder(radius=0.5, depth=0.5,)
+    c = base.create_cylinder(radius=0.5, depth=0.5)
     for i, (z) in enumerate([(math.pi / 4),(-math.pi / 4)]):
         for i, (p) in enumerate([(pos+8),(pos-8)]):
             base.add_cylinder(
@@ -307,5 +303,47 @@ def screw(pos):
             )
     return c
 
-base.modifier_apply(obj=screw(L_TOP), target=body, operation="DIFFERENCE")
-base.modifier_apply(obj=screw(L_BOTTOM), target=body, operation="DIFFERENCE")
+### --------------------------------------------
+
+#body.rotation_euler[0] = math.pi
+
+### --------------------------------------------
+
+#base.modifier_apply(obj=screw(L_TOP), target=body, operation="DIFFERENCE")
+#base.modifier_apply(obj=screw(L_BOTTOM), target=body, operation="DIFFERENCE")
+
+### --------------------------------------------
+### --------------------------------------------
+### --------------------------------------------
+
+BODY_radius_center = BODY_radius - .1 - WALL_hickness
+body3 = base.create_cylinder(
+    radius=BODY_radius_center, 
+    depth=BODY_height / 2.4 - 4, 
+    location=(0.0, 0.0, 15.0), 
+    vertices=64
+)
+base.modifier_apply(obj=body, target=body3, operation="DIFFERENCE")
+base.cut_cube(
+    target=body3,
+    scale=(52.0, 52.0, BODY_height / 2.3 - 4),
+    location=(0.0, 0.0, 15.0),
+    rotation=(0, 0, math.pi / 4),
+)
+
+### --------------------------------------------
+
+body3.rotation_euler[0] = math.pi
+
+### --------------------------------------------
+
+base.modifier_apply(obj=screw(L_TOP), target=body3, operation="DIFFERENCE")
+base.modifier_apply(obj=screw(L_BOTTOM), target=body3, operation="DIFFERENCE")
+
+body3.rotation_euler[2] = math.pi / 4
+
+base.cut_cube(
+    target=body3,
+    scale=(62.0, 62.0, BODY_height / 2.3 - 4),
+    location=(0.0, 10.0, -15.0),
+)
