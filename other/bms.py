@@ -13,11 +13,11 @@ import base
 
 base.init()
 
-MAIN_WIDTH = 65.4
-MAIN_HEIGHT = 45.5
+MAIN_WIDTH = 65.2
+MAIN_HEIGHT = 45.8
 
 MAIN_THICKNESS = 2.0
-MAIN_DEPTH = 3.3 + MAIN_THICKNESS
+MAIN_DEPTH = 1.3 + MAIN_THICKNESS
 
 # --------------------------------
 main = base.create_cube(
@@ -101,14 +101,14 @@ cut(5-BASE_X, BASE_Y)
 cut(5-BASE_X, -BASE_Y)
 
 W = 3.0
-cut(3.5-BASE_X, -W/2)
+cut(4.0-BASE_X, -W/2)
 
 base.cut_cube(
     target=main,
     scale=(
-        35.0,
+        37.0,
         12.5,
         MAIN_DEPTH,
     ),
-    location=(0.0, -12.5/2 - 3, 0.0),
+    location=(2.0, -12.5/2 - 4, 0.0),
 )
