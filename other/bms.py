@@ -13,10 +13,10 @@ import base
 
 base.init()
 
-MAIN_WIDTH = 65.2
-MAIN_HEIGHT = 45.8
+MAIN_WIDTH = 65.6
+MAIN_HEIGHT = 45.6
 
-MAIN_THICKNESS = 2.0
+MAIN_THICKNESS = 1.75
 MAIN_DEPTH = 1.3 + MAIN_THICKNESS
 
 # --------------------------------
@@ -35,6 +35,32 @@ base.cut_corners(
     depth=MAIN_DEPTH - MAIN_THICKNESS,
     thickness=MAIN_THICKNESS,
 )
+#===================================================
+
+M3 = 3.0
+X = (36.75+42.45)/4
+Y = (53.9+59.9)/4
+Z = (2.0-MAIN_DEPTH)/2
+
+for i, (x) in enumerate([(X), (-X)]):
+    base.add_cube(
+        target=main,
+        scale=(
+            M3*2,
+            Y*2,
+            2.0,
+        ),
+        location=(x, 0.0, Z),
+    )
+
+for i, (x, y) in enumerate([(X, Y), (X, -Y), (-X, -Y), (-X, Y)]):
+        base.add_ring(
+            target=main,
+            outer_radius=M3,
+            inner_radius=M3 / 2,
+            depth=2.0,
+            location=(x, y, Z),
+        )
 
 base.cut_cube(
     target=main,
@@ -46,32 +72,6 @@ base.cut_cube(
     location=(0.0, 0.0, MAIN_THICKNESS),
 )
 
-#===================================================
-
-M3 = 3.0
-X = (36.75+42.45)/4
-Y = (53.9+59.9)/4
-Z = (MAIN_THICKNESS-MAIN_DEPTH)/2
-
-for i, (x) in enumerate([(X), (-X)]):
-    base.add_cube(
-        target=main,
-        scale=(
-            M3*2,
-            Y*2,
-            MAIN_THICKNESS,
-        ),
-        location=(x, 0.0, Z),
-    )
-
-for i, (x, y) in enumerate([(X, Y), (X, -Y), (-X, -Y), (-X, Y)]):
-        base.add_ring(
-            target=main,
-            outer_radius=M3,
-            inner_radius=M3 / 2,
-            depth=MAIN_THICKNESS,
-            location=(x, y, Z),
-        )
 
 #===================================================
 
@@ -106,9 +106,9 @@ cut(4.0-BASE_X, -W/2)
 base.cut_cube(
     target=main,
     scale=(
-        37.0,
-        12.5,
+        39.0,
+        14.5,
         MAIN_DEPTH,
     ),
-    location=(2.0, -12.5/2 - 4, 0.0),
+    location=(3.0, -12.5/2 - 4, 0.0),
 )
